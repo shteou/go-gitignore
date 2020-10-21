@@ -4,10 +4,6 @@ import (
 	"strings"
 )
 
-type Ignore struct {
-	Entries []Entry
-}
-
 type Entry struct {
 	Kind     string
 	Value    string
@@ -45,7 +41,7 @@ func Unescape(s string) string {
 
 // ParseIgnoreLines Parse the supplied lines into a Go representation of that those
 // gitignore entries
-func ParseIgnoreLines(lines []string) (*Ignore, error) {
+func ParseIgnoreLines(lines []string) ([]Entry, error) {
 	ignoreEntries := []Entry{}
 
 	for _, l := range lines {
@@ -62,12 +58,12 @@ func ParseIgnoreLines(lines []string) (*Ignore, error) {
 		}
 	}
 
-	return &Ignore{ignoreEntries}, nil
+	return ignoreEntries, nil
 }
 
 // ParseIgnoreBytes Parse the supplied byte array into a Go representation of those
 // gitignore entries
-func ParseIgnoreBytes(bytes []byte) (*Ignore, error) {
+func ParseIgnoreBytes(bytes []byte) ([]Entry, error) {
 	lines := strings.Split(string(bytes), "\n")
 	return ParseIgnoreLines(lines)
 }

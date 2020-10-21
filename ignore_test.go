@@ -10,86 +10,86 @@ import (
 func TestIgnoreParseLine(t *testing.T) {
 	result, _ := ParseIgnoreLines([]string{".idea"})
 
-	assert.Equal(t, len(result.Entries), 1)
+	assert.Equal(t, len(result), 1)
 
-	assert.Equal(t, result.Entries[0].Kind, "Path")
-	assert.Equal(t, result.Entries[0].Original, ".idea")
-	assert.Equal(t, result.Entries[0].Value, ".idea")
+	assert.Equal(t, result[0].Kind, "Path")
+	assert.Equal(t, result[0].Original, ".idea")
+	assert.Equal(t, result[0].Value, ".idea")
 }
 
 func TestIgnoreParseNegation(t *testing.T) {
 	result, _ := ParseIgnoreLines([]string{"!.idea"})
 
-	assert.Equal(t, len(result.Entries), 1)
+	assert.Equal(t, len(result), 1)
 
-	assert.Equal(t, result.Entries[0].Kind, "NegatedPath")
-	assert.Equal(t, result.Entries[0].Original, "!.idea")
-	assert.Equal(t, result.Entries[0].Value, ".idea")
+	assert.Equal(t, result[0].Kind, "NegatedPath")
+	assert.Equal(t, result[0].Original, "!.idea")
+	assert.Equal(t, result[0].Value, ".idea")
 }
 
 func TestIgnoreParseComment(t *testing.T) {
 	result, _ := ParseIgnoreLines([]string{"# Amazing"})
 
-	assert.Equal(t, len(result.Entries), 1)
+	assert.Equal(t, len(result), 1)
 
-	assert.Equal(t, result.Entries[0].Kind, "Comment")
-	assert.Equal(t, result.Entries[0].Original, "# Amazing")
-	assert.Equal(t, result.Entries[0].Value, "Amazing")
+	assert.Equal(t, result[0].Kind, "Comment")
+	assert.Equal(t, result[0].Original, "# Amazing")
+	assert.Equal(t, result[0].Value, "Amazing")
 }
 
 func TestIgnoreParseEmpty(t *testing.T) {
 	result, _ := ParseIgnoreLines([]string{""})
 
-	assert.Equal(t, len(result.Entries), 1)
+	assert.Equal(t, len(result), 1)
 
-	assert.Equal(t, result.Entries[0].Kind, "Empty")
-	assert.Equal(t, result.Entries[0].Original, "")
-	assert.Equal(t, result.Entries[0].Value, "")
+	assert.Equal(t, result[0].Kind, "Empty")
+	assert.Equal(t, result[0].Original, "")
+	assert.Equal(t, result[0].Value, "")
 }
 
 func TestIgnoreParseWhitespace(t *testing.T) {
 	result, _ := ParseIgnoreLines([]string{" "})
 
-	assert.Equal(t, len(result.Entries), 1)
+	assert.Equal(t, len(result), 1)
 
-	assert.Equal(t, result.Entries[0].Kind, "Empty")
-	assert.Equal(t, result.Entries[0].Original, " ")
-	assert.Equal(t, result.Entries[0].Value, " ")
+	assert.Equal(t, result[0].Kind, "Empty")
+	assert.Equal(t, result[0].Original, " ")
+	assert.Equal(t, result[0].Value, " ")
 }
 
 func TestIgnoreParseWhitespaceBeforePath(t *testing.T) {
 	result, _ := ParseIgnoreLines([]string{" .idea"})
 
-	assert.Equal(t, len(result.Entries), 1)
+	assert.Equal(t, len(result), 1)
 
-	assert.Equal(t, result.Entries[0].Kind, "Path")
-	assert.Equal(t, result.Entries[0].Original, " .idea")
-	assert.Equal(t, result.Entries[0].Value, " .idea")
+	assert.Equal(t, result[0].Kind, "Path")
+	assert.Equal(t, result[0].Original, " .idea")
+	assert.Equal(t, result[0].Value, " .idea")
 }
 
 func TestIgnoreParseMultiLine(t *testing.T) {
 	result, _ := ParseIgnoreLines([]string{"# This is a .gitignore file", ".idea", "!foo"})
 
-	assert.Equal(t, len(result.Entries), 3)
+	assert.Equal(t, len(result), 3)
 
-	assert.Equal(t, result.Entries[0].Kind, "Comment")
-	assert.Equal(t, result.Entries[0].Original, "# This is a .gitignore file")
-	assert.Equal(t, result.Entries[0].Value, "This is a .gitignore file")
+	assert.Equal(t, result[0].Kind, "Comment")
+	assert.Equal(t, result[0].Original, "# This is a .gitignore file")
+	assert.Equal(t, result[0].Value, "This is a .gitignore file")
 
-	assert.Equal(t, result.Entries[1].Kind, "Path")
-	assert.Equal(t, result.Entries[1].Original, ".idea")
-	assert.Equal(t, result.Entries[1].Value, ".idea")
+	assert.Equal(t, result[1].Kind, "Path")
+	assert.Equal(t, result[1].Original, ".idea")
+	assert.Equal(t, result[1].Value, ".idea")
 
-	assert.Equal(t, result.Entries[2].Kind, "NegatedPath")
-	assert.Equal(t, result.Entries[2].Original, "!foo")
-	assert.Equal(t, result.Entries[2].Value, "foo")
+	assert.Equal(t, result[2].Kind, "NegatedPath")
+	assert.Equal(t, result[2].Original, "!foo")
+	assert.Equal(t, result[2].Value, "foo")
 }
 
 func TestIgnoreParseBytes(t *testing.T) {
 	bytes, _ := ioutil.ReadFile("test_fixtures/gitignore")
 	result, _ := ParseIgnoreBytes(bytes)
 
-	assert.Equal(t, len(result.Entries), 2)
+	assert.Equal(t, len(result), 2)
 }
 
 func TestRightSpaceNoWhiteSpace(t *testing.T) {
