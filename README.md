@@ -32,15 +32,15 @@ The Parse functions return an array of Entry structs (or an error).
 package main
 
 import (
-  "fmt"
+        "fmt"
 
-  ignore "github.com/shteou/go-gitignore"
+        ignore "github.com/shteou/go-gitignore"
 )
 
 func main() {
-  lines := []string{"# A comment", ".ignore*", "!ignore.dont"}
-  ignore, _ := ignore.ParseIgnoreLines(lines)
-  fmt.Printf("%v+\n", ignore)
-  fmt.Printf("Line 0: Type '%s', Value '%s', Original '%s'\n", ignore.Entries[0].Kind, ignore.Entries[0].Value, ignore.Entries[0].Original)
+        lines := []string{"# A comment", ".ignore*", "!ignore.dont"}
+        ignore, _ := ignore.ParseIgnoreLines(lines)
+        fmt.Printf("%v+\n", ignore)
+        fmt.Printf("Line 0: Type '%s', Value '%s', Original '%s'\n", ignore[0].Kind, ignore[0].Value, ignore[0].Original)
 }
 ```
