@@ -20,10 +20,10 @@ The Parse functions return an array of Entry structs (or an error).
 
 * Kind indicates the type of the entry, either Empty, Comment, Path, or NegatedPath
 * Value indicates the effective value of the entry, with the following transformations
-  Empty lines are always empty!
-  Comments are left trimmed for whitespace
-  Paths are unescaped
-  NegatedPaths are unescaped with the negation character removed
+  * Empty lines are always empty!
+  * Comments are left trimmed for whitespace
+  * Paths are unescaped
+  * NegatedPaths are unescaped with the negation character removed
 * Original provides the original line, unaltered
 
 ## Example Usage
