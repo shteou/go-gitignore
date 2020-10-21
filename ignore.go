@@ -5,10 +5,10 @@ import (
 )
 
 type Ignore struct {
-	IgnoreEntries []IgnoreEntry
+	Entries []Entry
 }
 
-type IgnoreEntry struct {
+type Entry struct {
 	Kind     string
 	Value    string
 	Original string
@@ -46,19 +46,19 @@ func Unescape(s string) string {
 // ParseIgnoreLines Parse the supplied lines into a Go representation of that those
 // gitignore entries
 func ParseIgnoreLines(lines []string) (*Ignore, error) {
-	ignoreEntries := []IgnoreEntry{}
+	ignoreEntries := []Entry{}
 
 	for _, l := range lines {
 		stripped := TrimRightSpace(l)
 
 		if stripped == "" {
-			ignoreEntries = append(ignoreEntries, IgnoreEntry{"Empty", l, l})
+			ignoreEntries = append(ignoreEntries, Entry{"Empty", l, l})
 		} else if strings.HasPrefix(l, "#") {
-			ignoreEntries = append(ignoreEntries, IgnoreEntry{"Comment", strings.TrimSpace(stripped[1:]), l})
+			ignoreEntries = append(ignoreEntries, Entry{"Comment", strings.TrimSpace(stripped[1:]), l})
 		} else if strings.HasPrefix(l, "!") {
-			ignoreEntries = append(ignoreEntries, IgnoreEntry{"NegatedPath", Unescape(stripped[1:]), l})
+			ignoreEntries = append(ignoreEntries, Entry{"NegatedPath", Unescape(stripped[1:]), l})
 		} else {
-			ignoreEntries = append(ignoreEntries, IgnoreEntry{"Path", Unescape(stripped), l})
+			ignoreEntries = append(ignoreEntries, Entry{"Path", Unescape(stripped), l})
 		}
 	}
 
