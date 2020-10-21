@@ -43,9 +43,9 @@ func Unescape(s string) string {
 	return res
 }
 
-// ParseIgnore Parse the supplied lines into a Go representation of that file
-// The result is an object
-func ParseIgnore(lines []string) (*Ignore, error) {
+// ParseIgnoreLines Parse the supplied lines into a Go representation of that those
+// gitignore entries
+func ParseIgnoreLines(lines []string) (*Ignore, error) {
 	ignoreEntries := []IgnoreEntry{}
 
 	for _, l := range lines {
@@ -63,4 +63,11 @@ func ParseIgnore(lines []string) (*Ignore, error) {
 	}
 
 	return &Ignore{ignoreEntries}, nil
+}
+
+// ParseIgnoreBytes Parse the supplied byte array into a Go representation of those
+// gitignore entries
+func ParseIgnoreBytes(bytes []byte) (*Ignore, error) {
+	lines := strings.Split(string(bytes), "\n")
+	return ParseIgnoreLines(lines)
 }
