@@ -40,7 +40,7 @@ func Unescape(s string) string {
 }
 
 // ParseIgnoreLines Parse the supplied lines into a Go representation of that those
-// gitignore entries
+// ignore entries
 func ParseIgnoreLines(lines []string) ([]Entry, error) {
 	ignoreEntries := []Entry{}
 
@@ -62,7 +62,7 @@ func ParseIgnoreLines(lines []string) ([]Entry, error) {
 }
 
 // ParseIgnoreBytes Parse the supplied byte array into a Go representation of those
-// gitignore entries
+// gnore entries
 func ParseIgnoreBytes(bytes []byte) ([]Entry, error) {
 	lines := strings.Split(string(bytes), "\n")
 	return ParseIgnoreLines(lines)

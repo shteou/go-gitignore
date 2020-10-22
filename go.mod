@@ -1,4 +1,4 @@
-module github.com/shteou/go-gitignore
+module github.com/shteou/go-ignore
 
 go 1.13
 
